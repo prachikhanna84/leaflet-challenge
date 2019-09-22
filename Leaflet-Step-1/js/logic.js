@@ -96,7 +96,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojs
 
     // Initialize a stationStatusCode, which will be used as a key to access the appropriate layers, icons, and station count for layer group
     // var stationStatusCode;
-    var EarthquakeRange;
+    var EarthquakeFrequency;
     
           
     // Loop through the stations (they're the same size and have partially matching data)
@@ -108,57 +108,56 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojs
    
       if (magnitude > 5)
       {
-        EarthquakeRange="layer5plus";
+        EarthquakeFrequency="layer5plus";
       }
       else if (magnitude > 4)
       {
-        EarthquakeRange="layer45";
+        EarthquakeFrequency="layer45";
       }
       else if(magnitude > 3)
       {
-        EarthquakeRange="layer34";
+        EarthquakeFrequency="layer34";
       }
       else if(magnitude > 2)
       {
-        EarthquakeRange="layer23";
+        EarthquakeFrequency="layer23";
       }
       else if(magnitude >1)
       {
-        EarthquakeRange="layer12";
+        EarthquakeFrequency="layer12";
       }
       else
       {
-        EarthquakeRange="layer01";
+        EarthquakeFrequency="layer01";
       }
       
     
     var newMarker = L.circleMarker([latitude, longitude],
       {radius: magnitude*8,
         fillOpacity: 1,
-        fillColor: color[EarthquakeRange],
+        fillColor: color[EarthquakeFrequency],
         color: "black",
         weight: 1});//  ,
       // {}
       // );
-    newMarker.addTo(layers[EarthquakeRange]);   
+    newMarker.addTo(layers[EarthquakeFrequency]);   
 
    newMarker.bindPopup("Place: " +EarthquakeDataArray[i].properties.place + "<br> Magnitude: " + magnitude +"<br>");
     
-  updateLegend();
+  addLegend();
    
   };
 
 });
 
-
-function updateLegend() {
+function addLegend() {
   document.querySelector(".legend").innerHTML = [
-    "<p class='layer01'>0-1" + "</p>",
-    "<p class='layer12'>1-2" + "</p>",
-    "<p class='layer23'>2-3" + "</p>",
-    "<p class='layer34'>3-4" + "</p>",
-    "<p class='layer45'>4-5" + "</p>",
-    "<p class='layer5plus'>5+" + "</p>"
+    "<p class='layer01' style='color:greenyellow'>0-1" + "</p>",
+    "<p class='layer12' style='color:yellow'>1-2" + "</p>",
+    "<p class='layer23' style='color:gold'>2-3" + "</p>",
+    "<p class='layer34' style='color:orange'>3-4" + "</p>",
+    "<p class='layer45' style='color:darkorange'>4-5" + "</p>",
+    "<p class='layer5plus' style='color:red'>5+" + "</p>"
   ].join("");
 }
 
